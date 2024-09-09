@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Material Design for Bootstrap</title>
+  <!-- MDB icon -->
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <!-- MDB -->
+  <!-- <link rel="stylesheet" href="css/bootstrap-to-do-list.min.css" /> -->
+  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.min.css" />
+        <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.dark.min.css">
+        <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.dark.rtl.min.css">
+        <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.min.css">
+        <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.rtl.min.css">
+        <link rel="stylesheet" href="bootstrap-to-do-list-main/css/mdb.dark.min.css.map">
+        <link rel="stylesheet" href="bootstrap-to-do-list-main/css/mdb.dark.rtl.min.css.map">
+        <link rel="stylesheet" href="bootstrap-to-do-list-main/css/mdb.min.css.map">
+        <link rel="stylesheet" href="bootstrap-to-do-list-main/css/mdb.rtl.min.css.map">
+        <script src="bootstrap-to-do-list-main/js/mdb.min.js"></script>
+        <script src="bootstrap-to-do-list-main/js/localstorage.js"></script>
+        <script src="bootstrap-to-do-list-main/package.json"></script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>   
+    </head>
+    <body>
+         <!-- Start your project here-->
+  <style>
+    .gradient-custom {
+      background: radial-gradient(50% 123.47% at 50% 50%, #00ff94 0%, #720059 100%),
+        linear-gradient(121.28deg, #669600 0%, #ff0000 100%),
+        linear-gradient(360deg, #0029ff 0%, #8fff00 100%),
+        radial-gradient(100% 164.72% at 100% 100%, #6100ff 0%, #00ff57 100%),
+        radial-gradient(100% 148.07% at 0% 0%, #fff500 0%, #51d500 100%);
+      background-blend-mode: screen, color-dodge, overlay, difference, normal;
+    }
+  </style>
+  <section class="vh-100 gradient-custom">
+    <div id="demo"></div>
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+
+          <div class="card">
+            <div class="card-body p-5">
+
+              <form class="d-flex justify-content-center align-items-center mb-4"  id="div1">
+                <div class="form-outline flex-fill">
+                  <input type="text"  class="form-control"  id="newTask" />
+                  <label class="form-label" for="newTask" >Add Task ...</label>
+                </div>
+                <button type="submit" class="btn btn-info ms-2">Add</button>
+              </form>
+
+              <!-- Tabs navs -->
+              <ul class="nav nav-tabs mb-4 pb-2" id="ex1" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="tab" href="#ex1-tabs-1" role="tab"
+                    aria-controls="ex1-tabs-1" aria-selected="true">All</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="#ex1-tabs-2" role="tab"
+                    aria-controls="ex1-tabs-2" aria-selected="false">Active</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="ex1-tab-3" data-mdb-toggle="tab" href="#ex1-tabs-3" role="tab"
+                    aria-controls="ex1-tabs-3" aria-selected="false">Completed</a>
+                </li>
+              </ul>
+              <!-- Tabs navs -->
+             
+              <!-- Tabs content -->
+              <div  class="tab-content" id="ex1-content">
+                <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                  <p style="display:block">ALL!</p>
+                <ul id="output" class="list-group mb-0"></ul>
+                <p id="text" style="display:none">Checkbox is CHECKED!</p>
+                </div>
+            
+            <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+              <p style="display:block">ACTIVE!</p>
+              <ul id="active1" class="list-group mb-0"></ul>
+             
+          </div>
+
+          <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+            <p style="display:block">COMPLETED!</p>
+            <ul id="output" class="list-group mb-0"></ul>
+            
+        </div>
+          </div>
+              <!-- Tabs content -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End your project here-->
+
+  <!-- MDB -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- <script src="bootstrap-to-do-list-main/js/mdb.min.js"></script> -->
+  <!-- Custom scripts -->
+  <script type="text/javascript"></script>
+  <script>
+   document.getElementById("div1").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const task = document.getElementById('newTask').value;
+            console.log(task);
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            console.log(tasks);
+            
+            // افزودن نام جدید به آرایه
+            tasks.push({ task });
+            
+            // ذخیره آرایه به‌روزرسانی شده در لوکال استوریج
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            
+            // نمایش مقادیر ذخیره شده
+            displayTasks();
+        });
+    
+       // let counter = 0;
+var li;
+function displayTasks() {
+  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  const output = document.getElementById('output');
+  output.innerHTML = '';
+  tasks.forEach(task => {
+    li = document.createElement('li');
+    li.className = 'list-group-item d-flex align-items-center border-0 mb-0 rounded myLi';
+    li.style.backgroundColor = '#f4f6f7';
+    li.style.listStyleType = 'none';
+    li.textContent = task.task;
+    
+    const checkbox = document.createElement('input');
+    checkbox.className = "myCheck form-check-input me-2";
+    checkbox.onclick = myCheck;
+    checkbox.type = 'checkbox';
+    checkbox.value = '';
+    checkbox.ariaLabel = '...';
+    
+    li.appendChild(checkbox);
+    output.appendChild(li);
+    
+    // Increase the counter
+    //counter++;
+  });
+
+  // Update the counter display
+  //document.getElementById('counter').innerText = 'Number of checkboxes created: ' + counter;
+}
+
+function myCheck() {
+  var checkBoxes = document.getElementsByClassName("myCheck");
+  console.log(li);
+  console.log("Number of checkboxes: " + checkBoxes.length);
+  var text = document.getElementById("text");
+  var isChecked = false;
+
+  for (var i=0; i<checkBoxes.length; i++){
+    var act = document.getElementsByClassName("myLi")[i].textContent;
+    console.log(act);
+  }
+  
+
+  
+  for (var i = 0; i < checkBoxes.length; i++) {
+    if (checkBoxes[i].checked) {
+      isChecked = true;
+      break;
+    }
+  }
+
+  if (isChecked) {
+    text.style.display = "block";
+    
+
+  } else {
+    text.style.display = "none";
+  }
+}
+
+$(document).ready(function() {
+  // نمایش وظایف ذخیره شده در بارگذاری صفحه
+  displayTasks();
+});
+  </script>
+    </body>
+</html>
+
