@@ -26,6 +26,7 @@
   <script src="bootstrap-to-do-list-main/js/mdb.min.js"></script>
   <script src="bootstrap-to-do-list-main/js/localstorage.js"></script>
   <script src="bootstrap-to-do-list-main/package.json"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
@@ -156,12 +157,10 @@
         li.appendChild(checkbox);
         output.appendChild(li);
 
-        // Increase the counter
-        //counter++;
+        
       });
 
-      // Update the counter display
-      //document.getElementById('counter').innerText = 'Number of checkboxes created: ' + counter;
+      
     }
     var actsArray = [];
     function myCheck() {
@@ -185,7 +184,7 @@
         });
       }
       //console.log(actsArray);
-      activeP();
+
 
 
 
@@ -212,45 +211,18 @@
       displayTasks();
     });
 
-    var checkboxes = document.getElementsByClassName("myCheck");
-
-
-    for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].addEventListener("change", function () {
-        if (this.checked) { // بررسی اینکه چک‌باکس تیک خورده است
-          activeP();
-        }
-      });
-    }
-
-    function activeP() {
-      //console.log(actsArray);
-
-      var para = document.getElementById("p1");
-      para.style.display="block";
-      // var ul = document.getElementById("active1");
-      // var li = document.createElement("li");
-      // li.className = 'list-group-item d-flex align-items-center border-0 mb-0 rounded myLi';
-      // li.style.backgroundColor = '#f4f6f7';
-      // li.style.listStyleType = 'none';
-      // li.textContent = "hellooooooooo";
-      // //var text = document.createTextNode(actsArray);
-      // const checkbox = document.createElement('input');
-      // checkbox.className = "myCheck form-check-input me-2";
-      // checkbox.onclick = myCheck;
-      // checkbox.type = 'checkbox';
-      // checkbox.checked = true;
-      // checkbox.ariaLabel = '...';
-
-      // li.appendChild(checkbox);
-      // //li.appendChild(text);
-      // ul.appendChild(li);
-    }
-    //document.getElementsByClassName("myCheck").addEventListener("checked", activeP);
-
-    window.onload = function () {
-      activeP();
-    };
+    $(document).ready(function() {
+            $('.myCheck').change(function() {
+                if ($(this).is(':checked')) {
+                  var myLiValue = $('.myLi').first().val();
+                  console.log(myLiValue.innerHTML);
+                    $("#active1").append(
+                      '<p>'+myLiValue+'</p>'
+                    )
+                }
+            });
+        });
+  
 
 
   </script>
