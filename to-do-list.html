@@ -144,7 +144,7 @@
 
         $("#submit").on('click', function (event) {
           event.preventDefault();
-          var task = $("#newTask").val(); // انتقال این خط به داخل تابع کلیک
+          var task = $("#newTask").val();   
 
           if (task) {
             console.log(task);
@@ -157,19 +157,19 @@
             saveTask(task);
 
 
-            $("#newTask").val(''); // پاک کردن ورودی بعد از اضافه کردن وظیفه
+            $("#newTask").val(''); 
           }
         });
       });
 
-      // پاک کردن لوکال استوریج
+         
       $("#clearStorage").on('click', function () {
         localStorage.clear();
-        $("#output").empty(); // پاک کردن لیست نمایش داده شده
+        $("#output").empty();     
         console.log("لوکال استوریج پاک شد");
       });
 
-      // بررسی چک‌باکس‌ها
+      
       $(document).on('change', '.myCheckbox', function () {
         if ($(this).is(':checked')) {
           console.log('سلام من اینجا هستم');
