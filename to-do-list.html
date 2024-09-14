@@ -57,7 +57,7 @@
                   <input type="text" class="form-control" id="newTask" />
                   <label class="form-label" for="newTask">Add Task ...</label>
                 </div>
-                <button type="submit" class="btn btn-info ms-2">Add</button>
+                <button type="submit" class="btn btn-info ms-2" id="submit">Add</button>
               </form>
 
               <!-- Tabs navs -->
@@ -82,13 +82,13 @@
                 <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
                   <p style="display:block">ALL!</p>
                   <ul id="output" class="list-group mb-0"></ul>
-                  <!-- <p id="text" style="display:none">Checkbox is CHECKED!</p> -->
+                  <p id="p1"></p>
                 </div>
 
                 <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                   <p style="display:block">ACTIVE!</p>
-                  <ul id="active1" class="list-group mb-0">
-                    <li id="p1" style="display: none;">Im a test</li>
+                  <ul id="" class="list-group mb-0">
+
                   </ul>
 
 
@@ -96,7 +96,7 @@
 
                 <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
                   <p style="display:block">COMPLETED!</p>
-                  <ul id="output" class="list-group mb-0"></ul>
+                  <ul id="com1" class="list-group mb-0"></ul>
 
                 </div>
               </div>
@@ -117,112 +117,88 @@
   <!-- Custom scripts -->
   <script type="text/javascript"></script>
   <script>
-    document.getElementById("div1").addEventListener("submit", function (event) {
-      event.preventDefault();
-      const task = document.getElementById('newTask').value;
-      console.log(task);
-      let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-      console.log(tasks);
-
-      // افزودن نام جدید به آرایه
-      tasks.push({ task });
-
-      // ذخیره آرایه به‌روزرسانی شده در لوکال استوریج
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-
-      // نمایش مقادیر ذخیره شده
-      displayTasks();
-    });
-
-    // let counter = 0;
-    var li;
-    function displayTasks() {
-      const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-      const output = document.getElementById('output');
-      output.innerHTML = '';
-      tasks.forEach(task => {
-        li = document.createElement('li');
-        li.className = 'list-group-item d-flex align-items-center border-0 mb-0 rounded myLi';
-        li.style.backgroundColor = '#f4f6f7';
-        li.style.listStyleType = 'none';
-        li.textContent = task.task;
-
-        const checkbox = document.createElement('input');
-        checkbox.className = "myCheck form-check-input me-2";
-        checkbox.onclick = myCheck;
-        checkbox.type = 'checkbox';
-        checkbox.value = '';
-        checkbox.ariaLabel = '...';
-
-        li.appendChild(checkbox);
-        output.appendChild(li);
-
-        
-      });
-
-      
-    }
-    var actsArray = [];
-    function myCheck() {
-      var checkBoxes = document.getElementsByClassName("myCheck");
-      // console.log(li);
-      console.log("Number of checkboxes: " + checkBoxes.length);
-      // var text = document.getElementById("text");
-      var isChecked = false;
-
-
-      var listItems = document.getElementsByClassName("myLi");
-
-      for (let i = 0; i < checkBoxes.length; i++) {
-        checkBoxes[i].addEventListener('change', function () {
-          if (this.checked) {
-            var act = listItems[i].textContent;
-            actsArray.push(act);
-
-
-          }
-        });
-      }
-      //console.log(actsArray);
-
-
-
-
-
-
-      for (var i = 0; i < checkBoxes.length; i++) {
-        if (checkBoxes[i].checked) {
-          isChecked = true;
-          break;
-        }
-      }
-
-      if (isChecked) {
-        text.style.display = "block";
-
-
-      } else {
-        text.style.display = "none";
-      }
-    }
-
     $(document).ready(function () {
 
-      displayTasks();
-    });
+      $(document).ready(function () {
+        function loadTasks() {
+          const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+          tasks.forEach(task => {
+            $("#output").append(
+              '<li class="list-group-item d-flex align-items-center border-0 mb-2 rounded" style="background-color: #f4f6f7;">' +
+              '<input class="form-check-input me-2 myCheckbox" type="checkbox" value="" aria-label="..." />' +
+              task +
+              '</li>'
+            );
 
-    $(document).ready(function() {
-            $('.myCheck').change(function() {
-                if ($(this).is(':checked')) {
-                  var myLiValue = $('.myLi').first().val();
-                  console.log(myLiValue.innerHTML);
-                    $("#active1").append(
-                      '<p>'+myLiValue+'</p>'
-                    )
-                }
-            });
+
+          });
+        }
+
+        function saveTask(task) {
+          const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+          tasks.push(task);
+          localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        loadTasks();
+
+        $("#submit").on('click', function (event) {
+          event.preventDefault();
+          var task = $("#newTask").val(); // انتقال این خط به داخل تابع کلیک
+
+          if (task) {
+            console.log(task);
+            $("#output").append(
+              '<li class="list-group-item d-flex align-items-center border-0 mb-2 rounded" style="background-color: #f4f6f7;">' +
+              '<input class="form-check-input me-2 myCheckbox" type="checkbox" value="" aria-label="..." />' +
+              task +
+              '</li>'
+            );
+            saveTask(task);
+
+
+            $("#newTask").val(''); // پاک کردن ورودی بعد از اضافه کردن وظیفه
+          }
         });
-  
+      });
+
+      // پاک کردن لوکال استوریج
+      $("#clearStorage").on('click', function () {
+        localStorage.clear();
+        $("#output").empty(); // پاک کردن لیست نمایش داده شده
+        console.log("لوکال استوریج پاک شد");
+      });
+
+      // بررسی چک‌باکس‌ها
+      $(document).on('change', '.myCheckbox', function () {
+        if ($(this).is(':checked')) {
+          console.log('سلام من اینجا هستم');
+          var ulContent = $(this).closest('ul').html();
+          var taskContent = $(this).parent().text().trim();
+          com1(taskContent);
+        }
+      });
+
+      function com1(taskContent) {
+        console.log("this is activeT");
+
+        $("#com1").append(
+          '<li class="list-group-item d-flex align-items-center border-0 mb-2 rounded" style="background-color: #f4f6f7;">' +
+          '<input class="form-check-input me-2 myCheckbox" type="checkbox" value="" aria-label="..." checked  />' +
+          taskContent +
+          '</li>'
+        )
+
+
+      }
+
+
+
+
+    });
+    //localStorage.clear()
+
+
 
 
   </script>
