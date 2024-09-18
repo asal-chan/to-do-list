@@ -1,207 +1,80 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>to do list</title>
+     <!--jquery cdn-->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- MDB and Bootstrap 5 -->
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>Material Design for Bootstrap</title>
-  <!-- MDB icon -->
-  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
-  <!-- Google Fonts Roboto -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
-  <!-- MDB -->
-  <!-- <link rel="stylesheet" href="css/bootstrap-to-do-list.min.css" /> -->
-  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.min.css" />
-  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.dark.min.css">
-  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.dark.rtl.min.css">
-  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.min.css">
-  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/bootstrap-to-do-list.rtl.min.css">
-  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/mdb.dark.min.css.map">
-  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/mdb.dark.rtl.min.css.map">
-  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/mdb.min.css.map">
-  <link rel="stylesheet" href="bootstrap-to-do-list-main/css/mdb.rtl.min.css.map">
-  <script src="bootstrap-to-do-list-main/js/mdb.min.js"></script>
-  <script src="bootstrap-to-do-list-main/js/localstorage.js"></script>
-  <script src="bootstrap-to-do-list-main/package.json"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <body class="bg-light">
+    <!-- Main ToDo Section -->
+    <section
+      class="gradient-bg vh-100 d-flex justify-content-center align-items-center"
+    >
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-center mb-4">ToDo App</h4>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-</head>
+          <!-- Task Input -->
+          <form id="taskForm" class="d-flex mb-4">
+            <input
+              type="text"
+              id="addTaskInput"
+              class="form-control"
+              placeholder="Add Task..."
+            />
+            <button type="submit" class="btn btn-primary ms-2">Add</button>
+          </form>
 
-<body>
-  <!-- Start your project here-->
-  <style>
-    .gradient-custom {
-      background: radial-gradient(50% 123.47% at 50% 50%, #00ff94 0%, #720059 100%),
-        linear-gradient(121.28deg, #669600 0%, #ff0000 100%),
-        linear-gradient(360deg, #0029ff 0%, #8fff00 100%),
-        radial-gradient(100% 164.72% at 100% 100%, #6100ff 0%, #00ff57 100%),
-        radial-gradient(100% 148.07% at 0% 0%, #fff500 0%, #51d500 100%);
-      background-blend-mode: screen, color-dodge, overlay, difference, normal;
-    }
-  </style>
-  <section class="vh-100 gradient-custom">
-    <div id="demo"></div>
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-xl-10">
+          <!-- Filter Tabs -->
+          <ul class="filter-tabs-wrapper nav nav-tabs mb-3">
+            <li class="filter-button nav-item">
+              <a class="nav-link active" data-filter="all" href="#">All</a>
+            </li>
+            <li class="filter-button nav-item">
+              <a class="nav-link" data-filter="active" href="#">Active</a>
+            </li>
+            <li class="filter-button nav-item">
+              <a class="nav-link" data-filter="completed" href="#">Completed</a>
+            </li>
+          </ul>
 
-          <div class="card">
-            <div class="card-body p-5">
-
-              <form class="d-flex justify-content-center align-items-center mb-4" id="div1">
-                <div class="form-outline flex-fill">
-                  <input type="text" class="form-control" id="newTask" />
-                  <label class="form-label" for="newTask">Add Task ...</label>
-                </div>
-                <button type="submit" class="btn btn-info ms-2" id="submit">Add</button>
-              </form>
-
-              <!-- Tabs navs -->
-              <ul class="nav nav-tabs mb-4 pb-2" id="ex1" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="tab" href="#ex1-tabs-1" role="tab"
-                    aria-controls="ex1-tabs-1" aria-selected="true">All</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="#ex1-tabs-2" role="tab"
-                    aria-controls="ex1-tabs-2" aria-selected="false">Active</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link" id="ex1-tab-3" data-mdb-toggle="tab" href="#ex1-tabs-3" role="tab"
-                    aria-controls="ex1-tabs-3" aria-selected="false">Completed</a>
-                </li>
-              </ul>
-              <!-- Tabs navs -->
-
-              <!-- Tabs content -->
-              <div class="tab-content" id="ex1-content">
-                <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
-                  <p style="display:block">ALL!</p>
-                  <ul id="output" class="list-group mb-0"></ul>
-                  <p id="p1"></p>
-                </div>
-
-                <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                  <p style="display:block">ACTIVE!</p>
-                  <ul id="" class="list-group mb-0">
-
-                  </ul>
-
-
-                </div>
-
-                <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
-                  <p style="display:block">COMPLETED!</p>
-                  <ul id="com1" class="list-group mb-0"></ul>
-
-                </div>
-              </div>
-              <!-- Tabs content -->
-
-            </div>
-          </div>
-
+          <!-- Task List -->
+          <ul id="taskList" class="list-group"></ul>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- End your project here-->
+    </section>
 
-  <!-- MDB -->
-  <script type="text/javascript" src="js/mdb.min.js"></script>
-  <!-- <script src="bootstrap-to-do-list-main/js/mdb.min.js"></script> -->
-  <!-- Custom scripts -->
-  <script type="text/javascript"></script>
-  <script>
-    $(document).ready(function () {
-
-      $(document).ready(function () {
-        function loadTasks() {
-          const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-          tasks.forEach(task => {
-            $("#output").append(
-              '<li class="list-group-item d-flex align-items-center border-0 mb-2 rounded" style="background-color: #f4f6f7;">' +
-              '<input class="form-check-input me-2 myCheckbox" type="checkbox" value="" aria-label="..." />' +
-              task +
-              '</li>'
-            );
-
-
-          });
-        }
-
-        function saveTask(task) {
-          const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-          tasks.push(task);
-          localStorage.setItem('tasks', JSON.stringify(tasks));
-        }
-
-        loadTasks();
-
-        $("#submit").on('click', function (event) {
-          event.preventDefault();
-          var task = $("#newTask").val(); // انتقال این خط به داخل تابع کلیک
-
-          if (task) {
-            console.log(task);
-            $("#output").append(
-              '<li class="list-group-item d-flex align-items-center border-0 mb-2 rounded" style="background-color: #f4f6f7;">' +
-              '<input class="form-check-input me-2 myCheckbox" type="checkbox" value="" aria-label="..." />' +
-              task +
-              '</li>'
-            );
-            saveTask(task);
-
-
-            $("#newTask").val(''); // پاک کردن ورودی بعد از اضافه کردن وظیفه
-          }
-        });
-      });
-
-      // پاک کردن لوکال استوریج
-      $("#clearStorage").on('click', function () {
-        localStorage.clear();
-        $("#output").empty(); // پاک کردن لیست نمایش داده شده
-        console.log("لوکال استوریج پاک شد");
-      });
-
-      // بررسی چک‌باکس‌ها
-      $(document).on('change', '.myCheckbox', function () {
-        if ($(this).is(':checked')) {
-          console.log('سلام من اینجا هستم');
-          var ulContent = $(this).closest('ul').html();
-          var taskContent = $(this).parent().text().trim();
-          com1(taskContent);
-        }
-      });
-
-      function com1(taskContent) {
-        console.log("this is activeT");
-
-        $("#com1").append(
-          '<li class="list-group-item d-flex align-items-center border-0 mb-2 rounded" style="background-color: #f4f6f7;">' +
-          '<input class="form-check-input me-2 myCheckbox" type="checkbox" value="" aria-label="..." checked  />' +
-          taskContent +
-          '</li>'
-        )
-
-
-      }
-
-
-
-
-    });
-    //localStorage.clear()
-
-
-
-
-  </script>
-</body>
-
+    <!-- MDB and Bootstrap 5 JS -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"
+    ></script>
+    <!-- Custom JavaScript -->
+    <script src="js/js.js"></script>
+   
+  </body>
 </html>
