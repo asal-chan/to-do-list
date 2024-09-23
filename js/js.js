@@ -25,46 +25,80 @@ $(document).ready(function () {
             //6.saving and rendering the tasks
             saveAndRenderTasks();
         }
-
-        // Save to localStorage and render tasks
-        function saveAndRenderTasks() {
-            // 1. write tasks to localStorage with `tasks` key
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-            // 2. render tasks
-            var activeNavLink = $('.nav-link.active');
-            var activeFilter = $('activeNavLink').data('filter');
-            renderTasks(activeFilter);
-        }
-
-        function renderTasks(activeFilter = 'all') {
-            // 1. clear taskList content
-            taskList.innerHTML = '';
-            // 2. filter tasks that match the active filter
-            var filteredTasks = tasks.filter((task) => {
-                if (activeFilter === 'active') return !task.completed;
-                else if (activeFilter === 'complete') return task.completed;
-                else return true;
-            });
-            // 3. create `li` element for each task and append it to taskList
-            $.each(filteredTasks, function (index, task) {
-                console.log(task.text); // Example action: logging the task text
-                 $('#taskList').append(
-                '<li class="list-group-item d-flex align-items-center border-0 mb-2 rounded" style="background-color: #f4f6f7;">' +
-              '<input class="form-check-input me-2 myCheckbox" type="checkbox" value="" aria-label="..." />' +
-              task.text +
-              '</li>'
-            );
-
-            });
-
-
-
-
-
-
-
-        }
+   
 
     });
+
+    // Toggle task checkbox
+    $('#taskList').on('click', 'input[type="checkbox"]', function (event) { 
+        console.log("render");
+        // 1. if clicked element is checkbox
+        if ($(this).attr('type') === 'checkbox') {
+            // 2. get task id
+            var taskId = $(this).data('id');
+            /**
+             * 3. toggle task completed in tasks array
+             */
+            tasks = tasks.map((task) =>
+                task.id == taskId ? { ...task, completed: !task.completed } : task
+            );
+            // 4. save and render tasks
+            saveAndRenderTasks();
+        }
+
+        
+    });
+
+
+     // Filter active or completed tasks
+     filterButtons.each(function () {
+        // 1. add click event to each tab of different filterButtons
+        $(this).on('click', function (event) {
+            // 2. remove active class from each tab that has it
+            $('.nav-link.active').removeClass('active');
+            // 3. add active class to clicked tab
+            $(event.target).addClass('active');
+            // 4. render only tasks that match the filter ('all', 'active', 'completed')
+            const activeFilter = $(event.target).attr('data-filter');
+            renderTasks(activeFilter);
+        });
+    });
+
+
+     // Save to localStorage and render tasks
+     function saveAndRenderTasks() {
+        // 1. write tasks to localStorage with `tasks` key
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        // 2. render tasks
+        var activeFilter = $('.nav-link.active').data('filter');
+        renderTasks(activeFilter);
+    }
+
+      // Main function to render tasks array
+      function renderTasks(activeFilter = 'all') {
+        // 1. clear taskList content
+        $('#taskList').html('');
+        // 2. filter tasks that match the active filter
+        var filteredTasks = tasks.filter((task) => {
+            if (activeFilter === 'active') return !task.completed;
+            else if (activeFilter === 'completed') return task.completed;
+            else return true;
+        });
+        // 3. create `li` element for each task and append it to taskList
+        filteredTasks.forEach((task) => {
+            const li = $('<li></li>').addClass('list-group-item');
+            li.html(`
+    <input type="checkbox" class="form-check-input" data-id="${task.id}" ${task.completed ? 'checked' : ''} />
+    <span class="${task.completed ? 'text-decoration-line-through' : ''}">${task.text}</span>
+  `);
+            $('#taskList').append(li);
+        });
+    }
+    
+     // Initial render
+     renderTasks();
+
+
 })
-localStorage.clear();
+//localStorage.clear();
+
