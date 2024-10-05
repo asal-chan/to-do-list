@@ -17,7 +17,7 @@ $(document).ready(function () {
         // 3. if task text is not empty
         if (taskText) {
             // 4. create tasks and push it to tasks array
-            var task = { text: taskText, id: Date.now(), completed: false };
+            var task = { text: taskText, id: Date.now(), completed: false, delete:false };
             var taskArray = tasks.push(task);
             console.log(taskArray);
             // 5. clear input field 
@@ -49,6 +49,22 @@ $(document).ready(function () {
         
     });
 
+
+    //delete task
+    $('#taskList').on('click', '.button', function (event) { 
+        console.log("delete");
+        // 1. if clicked element is button
+        if ($(this).attr('type') === 'button') {
+            // 2. get task id
+            var taskId = $(this).data('id');
+            console.log("taskid delete is:" + taskId);
+            // 3. delete task
+            tasks = tasks.filter((task) => task.id !== taskId);
+            // 4. save and render tasks
+            saveAndRenderTasks();
+        }
+    });
+    
 
      // Filter active or completed tasks
      filterButtons.each(function () {
@@ -84,11 +100,13 @@ $(document).ready(function () {
             else if (activeFilter === 'completed') return task.completed;
             else return true;
         });
+
         // 3. create `li` element for each task and append it to taskList
         filteredTasks.forEach((task) => {
             const li = $('<li></li>').addClass('list-group-item');
             li.html(`
     <input type="checkbox" class="form-check-input" data-id="${task.id}" ${task.completed ? 'checked' : ''} />
+    <button type="button" class="btn btn-danger btn-sm button" data-id="${task.id}" data-delete="no">Delete</button>
     <span class="${task.completed ? 'text-decoration-line-through' : ''}">${task.text}</span>
   `);
             $('#taskList').append(li);
@@ -98,6 +116,8 @@ $(document).ready(function () {
      // Initial render
      renderTasks();
 
+
+ 
 
 })
 //localStorage.clear();
