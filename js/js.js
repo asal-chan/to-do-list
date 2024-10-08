@@ -60,17 +60,17 @@ $(document).ready(async function () {
 
 
     //delete task
-    $('#taskList').on('click', '.button', function (event) {
-        console.log("delete");
+    $('#taskList').on('click', '.button',async function (event) {
         // 1. if clicked element is button
         if ($(this).attr('type') === 'button') {
             // 2. get task id
             var taskId = $(this).data('id');
-            console.log("taskid delete is:" + taskId);
             // 3. delete task
             tasks = tasks.filter((task) => task.id !== taskId);
-            // 4. save and render tasks
-            saveAndRenderTasks();
+            await delTodo(taskId);
+            // 4. render tasks
+            var activeFilter = $('.nav-link.active').data('filter');
+            renderTasks(activeFilter);
         }
     });
 
@@ -187,7 +187,23 @@ $(document).ready(async function () {
             })
         })
     }
-
+    function delTodo(taskId) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: BASEURL + "/todos/"+taskId,
+                type: "DELETE",
+                headers: {
+                    Authorization: TOKEN
+                },
+                success: (res) => {
+                    resolve(res);
+                },
+                error: (error) => {
+                    reject(error);
+                },
+            })
+        })
+    }
 
 })
 //localStorage.clear();
