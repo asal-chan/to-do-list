@@ -1,8 +1,8 @@
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6ekB6LmNvbSIsImV4cCI6MTcyODQ4MDUyMiwidXNlcl9pZCI6MX0.gA62vl9OkFhEucQBy2ij6PKFKwhcnL8p58y2XlpbL7A";
 
 const BASEURL = "https://urchin-app-3n4ql.ondigitalocean.app";
 
 $(document).ready(async function () {
+    const TOKEN=window.localStorage.getItem("token");
     // Define elements
     var taskForm = $("#taskForm");
     var taskList = $("#taskList");
