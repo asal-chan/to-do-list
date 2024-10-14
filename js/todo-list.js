@@ -204,7 +204,11 @@ $(document).ready(async function () {
             })
         })
     }
-
+    //logout
+    $("#logout").on('click' , event =>{
+        window.localStorage.removeItem("token");
+        window.location.href="login.html";
+    })
 })
 //localStorage.clear();
 
