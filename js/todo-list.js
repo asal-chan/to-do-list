@@ -2,7 +2,7 @@
 const BASEURL = "https://urchin-app-3n4ql.ondigitalocean.app";
 
 $(document).ready(async function () {
-    const TOKEN=window.localStorage.getItem("token");
+    const TOKEN = window.localStorage.getItem("token");
     // Define elements
     var taskForm = $("#taskForm");
     var taskList = $("#taskList");
@@ -37,7 +37,7 @@ $(document).ready(async function () {
     });
 
     // Toggle task checkbox
-    $('#taskList').on('click', 'input[type="checkbox"]',async function (event) {
+    $('#taskList').on('click', 'input[type="checkbox"]', async function (event) {
         console.log("render");
         // 1. if clicked element is checkbox
         if ($(this).attr('type') === 'checkbox') {
@@ -46,9 +46,9 @@ $(document).ready(async function () {
             /**
              * 3. toggle task complete
              */
-            var task = tasks.find((task) =>task.id === taskId);
+            var task = tasks.find((task) => task.id === taskId);
             await toggleTodoCom(task);
-           
+
             // 4. render tasks
             var activeFilter = $('.nav-link.active').data('filter');
             renderTasks(activeFilter);
@@ -60,7 +60,7 @@ $(document).ready(async function () {
 
 
     //delete task
-    $('#taskList').on('click', '.button',async function (event) {
+    $('#taskList').on('click', '.button', async function (event) {
         // 1. if clicked element is button
         if ($(this).attr('type') === 'button') {
             // 2. get task id
@@ -169,14 +169,14 @@ $(document).ready(async function () {
     function toggleTodoCom(task) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: BASEURL + "/todos/"+task.id,
+                url: BASEURL + "/todos/" + task.id,
                 type: "PUT",
                 headers: {
                     Authorization: TOKEN
                 },
                 data: JSON.stringify({
-                    title:task.title,
-                    completed:!task.completed
+                    title: task.title,
+                    completed: !task.completed
                 }),
                 success: (res) => {
                     resolve(res);
@@ -190,7 +190,7 @@ $(document).ready(async function () {
     function delTodo(taskId) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: BASEURL + "/todos/"+taskId,
+                url: BASEURL + "/todos/" + taskId,
                 type: "DELETE",
                 headers: {
                     Authorization: TOKEN
@@ -204,7 +204,11 @@ $(document).ready(async function () {
             })
         })
     }
-
+    //logout
+    $("#logout").on('click', function () {
+        window.localStorage.removeItem("token");
+        window.location.href = "index.html";
+    });
 })
 //localStorage.clear();
 
