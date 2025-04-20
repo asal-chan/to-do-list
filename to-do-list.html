@@ -1,89 +1,66 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>to do list</title>
-     <!--jquery cdn-->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- MDB and Bootstrap 5 -->
-    <!-- Font Awesome -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- MDB -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
 
-  <body class="bg-light">
-    <!-- Main ToDo Section -->
-    <section
-      class="gradient-bg vh-100 d-flex justify-content-center align-items-center"
-    >
-      <div class="card">
-        <div class="card-body">
-          <h4 class="text-center mb-4">ToDo App</h4>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>to do list</title>
+  <!--jquery cdn-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- Custom JavaScript -->
+  <!-- <script src="js/todo-list.js"></script> -->
+  <script src="js/localStorageAdapter.js"></script>
+  <script src="js/todo-list1.js"></script>
+  <!-- MDB and Bootstrap 5 -->
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 
-          <!-- Task Input -->
-          <form id="taskForm" class="d-flex mb-4">
-            <input
-              type="text"
-              id="addTaskInput"
-              class="form-control"
-              placeholder="Add Task..."
-            />
-            <button type="submit" class="btn btn-primary ms-2">Add</button>
-          </form>
+</head>
 
-          <!-- Filter Tabs -->
-          <ul class="filter-tabs-wrapper nav nav-tabs mb-3">
-            <li class="filter-button nav-item">
-              <a class="nav-link active" data-filter="all" href="#">All</a>
-            </li>
-            <li class="filter-button nav-item">
-              <a class="nav-link" data-filter="active" href="#">Active</a>
-            </li>
-            <li class="filter-button nav-item">
-              <a class="nav-link" data-filter="completed" href="#">Completed</a>
-            </li>
-          </ul>
+<body class="bg-light">
+  <!-- Main ToDo Section -->
+  <section class="gradient-bg vh-100 d-flex justify-content-center align-items-center">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="text-center mb-4">ToDo App</h4>
 
-          <!-- Task List -->
-          <ul id="taskList" class="list-group"></ul>
-        </div>
+        <!-- Task Input -->
+        <form id="taskForm" class="d-flex mb-4">
+          <input type="text" id="addTaskInput" class="form-control" placeholder="Add Task..." />
+          <button type="submit" class="btn btn-primary ms-2">Add</button>
+        </form>
+
+        <!-- Filter Tabs -->
+        <ul class="filter-tabs-wrapper nav nav-tabs mb-3">
+          <li class="filter-button nav-item">
+            <a class="nav-link active" data-filter="all" href="#" id="all">All</a>
+          </li>
+          <li class="filter-button nav-item">
+            <a class="nav-link" data-filter="active" href="#" id="active">Active</a>
+          </li>
+          <li class="filter-button nav-item">
+            <a class="nav-link" data-filter="completed" href="#" id="completed">Completed</a>
+          </li>
+        </ul>
+
+        <!-- Task List -->
+        <ul id="taskList" class="list-group"></ul>
+
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- MDB and Bootstrap 5 JS -->
-    <script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"
-    ></script>
-    <!-- Custom JavaScript -->
-    <script src="js/js.js"></script>
-    <style>
-      .delete-button {
-          background-color: red;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          cursor: pointer;
-          font-size: 16px;
-      }
-  </style>
-  </body>
+  <!-- MDB and Bootstrap 5 JS -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
+
+
+
+
+</body>
+
 </html>
