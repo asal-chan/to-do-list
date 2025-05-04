@@ -27,5 +27,17 @@ class LocalStorageAdapter {
       }
     }
 
+    deleteTask(deleteTaskid) {
+      const tasks = this.getTasks();
+      const taskIndex = tasks.findIndex(task => {
+        return String(task.id) === String(deleteTaskid); 
+      });
+    
+      
+      if (taskIndex > -1) {
+        tasks.splice(taskIndex, 1); 
+        this.saveTasks(tasks); 
+      } 
+    }
+
   }
-  

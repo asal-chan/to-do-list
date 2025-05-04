@@ -25,6 +25,7 @@ $(document).ready(function () {
             const li = $('<li></li>').addClass('list-group-item');
             li.html(`
                 <span class="${task.completed ? 'text-decoration-line-through' : ''}">${task.text}</span>
+                <button class="btn-delete" data-id="${task.id}">delete</button>
                 <input type="checkbox" class="form-check-input" data-id="${task.id}" ${task.completed ? 'checked' : ''} />
             `);
             $('#taskList').append(li);
@@ -96,6 +97,23 @@ $(document).ready(function () {
             renderTasks(activeFilter);
         });
     });
+
+    
+    // Use event delegation for dynamically created elements
+    $('#taskList').on('click', '.btn-delete', function() {
+        const tasks = adapter.getTasks();
+        const taskId = $(this).attr('data-id');
+        // Remove the task from local storage
+        adapter.deleteTask(taskId);
+        // Remove the task from the DOM
+        $(this).closest('li').remove();
+        //testing
+        console.log(tasks);
+    });
+
+
+
+   
 
     // rendering tasks based on the filters 
     renderTasks(activeFilter);
